@@ -16,6 +16,9 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<!-- Propiedad de configuración de Version para JACOCO-->
+		<jacoco.version>0.8.7</jacoco.version>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -71,6 +74,46 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<!--PRIMERA EJECUCIÓN -->
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>com.codigo.unit_testing.aggregates.constants.Constants</exclude>
+								<exclude>com.codigo.unit_testing.controller.EmpresaController</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+					<!--SEGUNDA EJECUCIÓN -->
+					<execution>
+						<id>default-report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/coverage-reports</outputDirectory>
+							<formats>
+								<format>XML</format>
+								<format>HTML</format>
+							</formats>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.11.0.3922</version>
 			</plugin>
 		</plugins>
 	</build>
