@@ -29,9 +29,9 @@ public class EmpresaController {
         return service.crear(empresaRequest);
     }
     @PostMapping("/registrar2")
-    public ResponseEntity<BaseResponse> registrar2(
+    public ResponseEntity<BaseResponse<String>> registrar2(
             @RequestBody String dato){
-        BaseResponse baseResponse = new BaseResponse();
+        BaseResponse<String> baseResponse = new BaseResponse<>();
         baseResponse.setCode(2000);
         baseResponse.setMessage("TODO OK");
         baseResponse.setObjeto(Optional.of(dato));
